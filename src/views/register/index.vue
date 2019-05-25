@@ -1,9 +1,9 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">登录页面</h3>
+        <h3 class="title">注册页面</h3>
       </div>
 
       <el-form-item prop="username">
@@ -12,8 +12,8 @@
         </span>
         <el-input
           ref="username"
-          v-model="loginForm.username"
-          placeholder="用户名"
+          v-model="registerForm.username"
+          placeholder="请输入用户名"
           name="username"
           type="text"
           tabindex="1"
@@ -29,15 +29,14 @@
           <el-input
             :key="passwordType"
             ref="password"
-            v-model="loginForm.password"
+            v-model="registerForm.password"
             :type="passwordType"
-            placeholder="密码"
+            placeholder="请输入密码"
             name="password"
             tabindex="2"
             auto-complete="on"
             @keyup.native="checkCapslock"
             @blur="capsTooltip = false"
-            @keyup.enter.native="handleLogin"
           />
           <span class="show-pwd" @click="showPwd">
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
@@ -45,9 +44,33 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:10px;" @click.native.prevent="handleLogin">登录</el-button>
+      <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
+        <el-form-item prop="passwordConfirm">
+          <span class="svg-container">
+            <svg-icon icon-class="password" />
+          </span>
+          <el-input
+            :key="passwordType"
+            ref="passwordConfirm"
+            v-model="registerForm.passwordConfirm"
+            :type="passwordType"
+            placeholder="请再次输入密码"
+            name="passwordConfirm"
+            tabindex="2"
+            auto-complete="on"
+            @keyup.native="checkCapslock"
+            @blur="capsTooltip = false"
+            @keyup.enter.native="handleRegister"
+          />
+          <span class="show-pwd" @click="showPwd">
+            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+          </span>
+        </el-form-item>
+      </el-tooltip>
 
-      <el-button :loading="loading" type="text" style="width:100%;margin-bottom:30px;margin-left:0px;color:#eee" @click.native.prevent="handleRegist">没有账号？点击注册</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleRegister">注册</el-button>
+
+      <el-button :loading="loading" type="text" style="width:100%;margin-bottom:30px;margin-left:0px;color:#eee" @click.native.prevent="handleLogin">已经账号？点击登录</el-button>
     </el-form>
   </div>
 </template>
@@ -56,30 +79,39 @@
 import { validUsername } from '@/utils/validate'
 
 export default {
-  name: 'Login',
+  name: 'Register',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入正确的用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length <= 0) {
-        callback(new Error('The password can not be empty'))
+        callback(new Error('密码不能为空'))
+      } else {
+        callback()
+      }
+    }
+    const validatePasswordConfirm = (rule, value, callback) => {
+      if (value !== this.registerForm.password) {
+        callback(new Error('两次输入密码不一致！'))
       } else {
         callback()
       }
     }
     return {
-      loginForm: {
+      registerForm: {
         username: '',
-        password: ''
+        password: '',
+        passwordConfirm: ''
       },
-      loginRules: {
+      registerRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        passwordConfirm: [{ required: true, trigger: 'blur', validator: validatePasswordConfirm }]
       },
       passwordType: 'password',
       capsTooltip: false,
@@ -104,10 +136,12 @@ export default {
     // window.addEventListener('storage', this.afterQRScan)
   },
   mounted() {
-    if (this.loginForm.username === '') {
+    if (this.registerForm.username === '') {
       this.$refs.username.focus()
-    } else if (this.loginForm.password === '') {
+    } else if (this.registerForm.password === '') {
       this.$refs.password.focus()
+    } else if (this.registerForm.passwordConfirm === '') {
+      this.$refs.passwordConfirm.focus()
     }
   },
   destroyed() {
@@ -137,25 +171,26 @@ export default {
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$router.push({ path: '/login' })
+    },
+    handleRegister() {
+      this.$refs.registerForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm)
+          this.$store.dispatch('user/register', this.registerForm)
             .then(() => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+              this.$router.push(`/login?redirect=${this.$route.fullPath}`)
               this.loading = false
             })
-            .catch(() => {
+            .catch((error) => {
               this.loading = false
+              console.log(error)
             })
         } else {
           console.log('error submit!!')
           return false
         }
       })
-    },
-    handleRegist() {
-      this.$router.push({ path: '/register' })
     },
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
@@ -223,6 +258,7 @@ $light_gray:#eee;
 
 .login-container {
   background: url("https://account.talkingdata.com/images/bg-regist.png") top center no-repeat;
+
   min-height: 100%;
   width: 100%;
   background-color: $bg;

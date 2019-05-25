@@ -32,8 +32,31 @@ import Layout from '@/layout'
  */
 export const constantRoutes = [
   {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path*',
+        component: () => import('@/views/redirect/index')
+      }
+    ]
+  },
+  {
     path: '/login',
     component: () => import('@/views/login/index'),
+    hidden: true
+  },
+
+  {
+    path: '/register',
+    component: () => import('@/views/register/index'),
+    hidden: true
+  },
+
+  {
+    path: '/auth-redirect',
+    component: () => import('@/views/login/auth-redirect'),
     hidden: true
   },
 
@@ -51,110 +74,94 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '导航', icon: 'dashboard' }
     }]
-  },
+  }
+]
 
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+export const asyncRoutes = [
   {
-    path: '/example',
+    path: '/manage',
+    name: 'Manage',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
+    redirect: '/manage/movie',
     meta: {
-      title: 'Nested',
-      icon: 'nested'
+      title: '影院管理',
+      icon: 'manage',
+      roles: ['admin']
     },
     children: [
       {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
+        path: 'movie',
+        name: 'ManageMovie',
+        component: () => import('@/views/manage/movie/index'),
+        meta: { title: '电影管理', icon: 'movie', affix: true }
       },
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
+        path: 'schedule',
+        name: 'ManageSchedule',
+        component: () => import('@/views/manage/schedule/index'),
+        meta: { title: '排片管理', icon: 'schedule', affix: true }
       }
     ]
   },
 
   {
-    path: 'external-link',
+    path: '/statistics',
     component: Layout,
+    redirect: '/statistics/index',
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        path: 'index',
+        name: 'Statistics',
+        component: () => import('@/views/statistics/index'),
+        meta: { title: '信息统计', icon: 'statistics', roles: ['admin'] }
+      }
+    ]
+  },
+
+  {
+    path: '/movie',
+    component: Layout,
+    redirect: '/movie/index',
+    children: [
+      {
+        path: 'index',
+        name: 'Movie',
+        component: () => import('@/views/movie/index'),
+        meta: { title: '电影信息', icon: 'movie', roles: ['editor'] }
+      }
+    ]
+  },
+
+  {
+    path: '/ticket',
+    component: Layout,
+    redirect: '/ticket/index',
+    children: [
+      {
+        path: 'index',
+        name: 'Ticket',
+        component: () => import('@/views/ticket/index'),
+        meta: { title: '我的电影票', icon: 'ticket', roles: ['editor'] }
+      }
+    ]
+  },
+
+  {
+    path: '/member',
+    component: Layout,
+    redirect: '/member/index',
+    children: [
+      {
+        path: 'index',
+        name: 'Member',
+        component: () => import('@/views/member/index'),
+        meta: { title: '我的卡包', icon: 'member', roles: ['editor'] }
       }
     ]
   },

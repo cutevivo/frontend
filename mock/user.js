@@ -47,6 +47,29 @@ export default [
     }
   },
 
+  {
+    url: '/user/register',
+    type: 'post',
+    response: config => {
+      const { username } = config.body
+      tokens[username] = { token: 'admin-token' }
+      const token = tokens[username]
+
+      // mock error
+      if (!token) {
+        return {
+          code: 60204,
+          message: 'Account and password are incorrect.'
+        }
+      }
+
+      return {
+        code: 20000,
+        data: token
+      }
+    }
+  },
+
   // get user info
   {
     url: '/user/info\.*',

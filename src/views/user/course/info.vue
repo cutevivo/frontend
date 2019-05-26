@@ -26,9 +26,6 @@ export default {
     // 'course-card': CourseCard,
     'note-card': NoteCard
   },
-  created: function() {
-    // this.chapterId = 1;
-  },
   data() {
     return {
       chapterId: 1,
@@ -67,45 +64,19 @@ export default {
     notes: function() {
       return [
         {
-          id: '12345',
+          id: '1234',
           name: 'xxx',
           time: '2019-5-18 20:36:13',
           likecount: this.chapterId,
+          isLike: false,
           text: '瑞士计算机科学'
         },
         {
-          id: '12345',
+          id: '1345',
           name: 'xxx',
           time: '2019-5-18 20:36:13',
           likecount: this.chapterId,
-          text: 'xxxxxx'
-        },
-        {
-          id: '12345',
-          name: 'xxx',
-          time: '2019-5-18 20:36:13',
-          likecount: this.chapterId,
-          text: 'xxxxxx'
-        },
-        {
-          id: '12345',
-          name: 'xxx',
-          time: '2019-5-18 20:36:13',
-          likecount: this.chapterId,
-          text: 'xxxxxx'
-        },
-        {
-          id: '12345',
-          name: 'xxx',
-          time: '2019-5-18 20:36:13',
-          likecount: this.chapterId,
-          text: 'xxxxxx'
-        },
-        {
-          id: '12345',
-          name: 'xxx',
-          time: '2019-5-18 20:36:13',
-          likecount: this.chapterId,
+          isLike: true,
           text: 'xxxxxx'
         }
       ]
@@ -113,14 +84,14 @@ export default {
     books: function() {
       return [
         {
-          id: '12345',
+          id: '1345',
           name: 'xxx',
           time: '2019-5-18 20:36:13',
           likecount: this.chapterId,
           text: '瑞士计算机科学'
         },
         {
-          id: '12345',
+          id: '1235',
           name: 'xxx',
           time: '2019-5-18 20:36:13',
           likecount: this.chapterId,

@@ -20,9 +20,9 @@
           </el-col>
           <el-col :span="6" :offset="12">
             <div class="collection">
-              <el-button type="warning" icon="el-icon-star-off" circle></el-button>
-            </div>  
-          </el-col>  
+              <el-button :type="this.btnType" @click="onCollection" icon="el-icon-star-off" circle></el-button>
+            </div>
+          </el-col>
         </el-footer>
       </el-container>
     </el-container>
@@ -36,6 +36,23 @@ export default {
     note: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      isLike: this.note.isLike
+    }
+  },
+  computed: {
+    btnType: function() {
+      console.log('type change' + this.isLike)
+      return this.isLike ? 'warning' : 'text'
+    }
+  },
+  methods: {
+    onCollection: function() {
+      this.isLike = !this.isLike
+      // TODO: 更新后台
     }
   }
 }

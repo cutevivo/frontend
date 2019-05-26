@@ -50,23 +50,44 @@ export const constantRoutes = [
 export const asyncRoutes = [
   {
     path: '/manage',
-    name: '管理',
     component: 'Layout',
+    redirect: '/manage/course',
+    name: 'Manage',
     meta: {
-
+      title: '课程管理',
+      icon: 'manage',
+      role: ['admin']
     },
     children: [
       {
-        path: 'movie',
-        name: '电影',
-        component: () => import('@/views/manage/movie/index'),
-        meta: { title: 'Documentation', icon: 'documentation', affix: true }
+        path: 'create',
+        component: () => import('@/views/manage/course/create'),
+        name: 'CreateCourse',
+        meta: {
+          title: '创建课程',
+          icon: 'edit'
+        }
       },
       {
-        path: 'movie',
-        component: () => import('@/views/manage/movie/index'),
-        name: 'Documentation',
-        meta: { title: 'Documentation', icon: 'documentation', affix: true }
+        path: 'course',
+        component: () => import('@/views/manage/course/list'),
+        name: 'Course',
+        meta: {
+          title: '所有课程',
+          icon: 'manage',
+          role: ['admin']
+        }
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/manage/course/edit'),
+        name: 'EditCourse',
+        meta: {
+          title: '修改课程',
+          noCache: true,
+          activeMenu: '/manage/course'
+        },
+        hidden: true
       }
     ]
   },

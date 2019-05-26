@@ -41,6 +41,18 @@ const manageRouter = {
         activeMenu: '/manage/course'
       },
       hidden: true
+    },
+    {
+
+      path: 'comment/:id(\\d+)',
+      component: () => import('@/views/manage/comment/list'),
+      name: 'Comments',
+      meta: {
+        title: '管理评论',
+        noCache: true,
+        activeMenu: '/manage/course'
+      },
+      hidden: true
     }
   ]
 }

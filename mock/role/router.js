@@ -41,7 +41,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: 'views/dashboard/index',
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        meta: { title: '导航', icon: 'dashboard', affix: true }
       }
     ]
   }
@@ -86,6 +86,36 @@ export const asyncRoutes = [
           title: '修改课程',
           noCache: true,
           activeMenu: '/manage/course'
+        },
+        hidden: true
+      }
+    ]
+  },
+
+  {
+    path: '/course',
+    component: 'Layout',
+    redirect: '/course/list',
+    name: 'UserCourse',
+    meta: {
+      title: '我的课程',
+      icon: 'statistics',
+      roles: ['user']
+    },
+    children: [
+      {
+        path: 'list',
+        name: 'UserCourseList',
+        component: () => import('@/views/user/course/list')
+      },
+      {
+        path: 'info',
+        name: 'CourseInfo',
+        component: () => import('@/views/user/course/info'),
+        meta: {
+          title: '课程信息',
+          noCache: true,
+          activeMenu: '/course/list'
         },
         hidden: true
       }

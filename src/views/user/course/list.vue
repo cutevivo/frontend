@@ -1,5 +1,5 @@
 <template>
   <div>
-    <h1>这里是修改课程</h1>
+    <h1>这是所有课程信息</h1>
   </div>
 </template>

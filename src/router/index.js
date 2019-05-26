@@ -8,7 +8,7 @@ import Layout from '@/layout'
 
 /* Router Modules */
 import manageRouter from './modules/manage'
-
+import userCourseRouter from './modules/userCourse'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -88,6 +88,8 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   manageRouter,
+
+  userCourseRouter,
 
   {
     path: '/statistics',

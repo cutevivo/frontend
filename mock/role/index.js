@@ -15,7 +15,7 @@ const roles = [
     key: 'user',
     name: 'user',
     description: 'Normal User. Can see all pages except permission page',
-    routes: routes.filter(i => i.path !== '/permission')// just a mock
+    routes: routes// just a mock
   },
   {
     key: 'visitor',
@@ -28,7 +28,7 @@ const roles = [
         {
           path: 'dashboard',
           name: 'Dashboard',
-          meta: { title: 'dashboard', icon: 'dashboard' }
+          meta: { title: 'Dashboard', icon: 'dashboard' }
         }
       ]
     }]

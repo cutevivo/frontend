@@ -1,9 +1,9 @@
 import request from '@/utils/request'
 
-export function login(data) {
+export function fetchNote(id) {
   return request({
-    url: '/user/login',
-    method: 'post',
-    data
+    url: '/note',
+    method: 'get',
+    params: { id }
   })
 }

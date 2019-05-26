@@ -1,18 +1,21 @@
 <template>
-  <el-card :body-style="{ padding: '0px' }" class="width">
-    <img :src="course.posterUrl" class="image">
+  <el-card >
+   <div><img :src="course.posterUrl" class="image"></div>
     <div style="padding=40px" >
-      <span style="margin=10px">{{ course.name }}</span>
-      <div style="padding=30px" >
-        <el-rate
+      <div class="title">{{course.name}}</div>
+      <div class="course-information">{{course.teacher}}</div>
+       <div> <el-rate 
           v-model="course.score"
           disabled
           show-score
           text-color="#ff9900"
           score-template="{value}"
         />
-     <router-link :to="'/course/info/' + course.id">
-            <el-button type="primary" size="mini" round>详情</el-button>
+        </div>
+        <div class="course-information">{{course.description}}</div>
+        <div>  
+          <router-link :to="'/course/info/' + course.id">
+            <el-button class="button">详情</el-button>
           </router-link>
       </div>
     </div>
@@ -72,27 +75,16 @@ export default {
     width: 100%;
     display: block;
   }
-  /* .el-container > * {
-    margin: 5px 0;
-
+  .el-card{
+    width:100%;
+    height:100%;
   }
-
-  .el-main {
-    padding: 5px 20px;
-    margin-top:20px;
+  .course-information{
+    font-family: monospace;
+    color: grey;
   }
-  .el-row{
-    margin-top: 10px;
+  .title{
+    font-family:"微软雅黑";
   }
-
-  .course-card {
-    height: 100%;
-  }
-
-  .course-description {
-    max-height: 100px;
-    min-height: 40px;
-    font-size: 14px;
-    color: #666
-  } */
+  
 </style>

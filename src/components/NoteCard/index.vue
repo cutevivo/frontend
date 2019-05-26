@@ -3,20 +3,25 @@
     <el-container class="note-card">
       <el-container>
         <el-header height="20px">
-          <el-row type="flex" justify="space-between">
-            <el-col :span="6">{{ note.name }}</el-col>
-            <el-col :span="4" class="right"><span>{{ note.likecount }}人收藏</span></el-col>
+          <el-row >
+            <el-col :span="6"><div>{{ note.name }}</div></el-col>
+            <el-col :span="6"><div>{{note.time}}</div></el-col>
+            <el-col :span="6" :offset="6"><div>{{note.likecount}}人收藏</div></el-col>
           </el-row>
         </el-header>
         <el-main>
-          <div class="note-description">
-            {{ note.description }}
-          </div>
+          <div class="note-description">{{ note. text}}</div>
         </el-main>
         <el-footer height="20px">
-          <router-link :to="'/note/view/' + note.id">
-            <el-button type="primary" size="small">详情</el-button>
-          </router-link>
+          <el-col :span="6">
+            <router-link :to="'/note/view/' + note.id">
+              <el-button type="text">更多</el-button>
+           </router-link>
+          </el-col>
+          <el-col :span="6" :offset="12">
+             <el-button type="warning" icon="el-icon-star-off" circle></el-button>
+          </el-col>
+           
         </el-footer>
       </el-container>
     </el-container>

@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="course-info">
-      <course-card :course="course" />
+      <el-container>
+      </el-container>
       <el-tabs tab-position="left" style="height: 100%;" :stretch="true" @tab-click="handleClick">
         <el-tab-pane v-for="(chapter, index) in course.chapters" :key="index" :label="chapter.name">
           <div class="notes-container">
-            <note-card v-for="note in notes" :key="note.id" :note="note" class="content" />
+            <note-card v-for="note in notes" :key="note.id" :note="note" class="note-container" />
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -16,18 +17,21 @@
 </template>
 
 <script>
-import CourseCard from '@/components/CourseCard'
+// import CourseCard from '@/components/CourseCard'
 import NoteCard from '@/components/NoteCard'
 
 export default {
   name: 'CourseInfo',
   components: {
-    'course-card': CourseCard,
+    // 'course-card': CourseCard,
     'note-card': NoteCard
+  },
+  created: function() {
+    // this.chapterId = 1;
   },
   data() {
     return {
-      chapterId: 0,
+      chapterId: 1,
       course: {
         id: 8,
         posterUrl: 'https://szimg.mukewang.com/5c62a4dc0812e84106000338-360-202.jpg',
@@ -75,6 +79,34 @@ export default {
           time: '2019-5-18 20:36:13',
           likecount: this.chapterId,
           text: 'xxxxxx'
+        },
+        {
+          id: '12345',
+          name: 'xxx',
+          time: '2019-5-18 20:36:13',
+          likecount: this.chapterId,
+          text: 'xxxxxx'
+        },
+        {
+          id: '12345',
+          name: 'xxx',
+          time: '2019-5-18 20:36:13',
+          likecount: this.chapterId,
+          text: 'xxxxxx'
+        },
+        {
+          id: '12345',
+          name: 'xxx',
+          time: '2019-5-18 20:36:13',
+          likecount: this.chapterId,
+          text: 'xxxxxx'
+        },
+        {
+          id: '12345',
+          name: 'xxx',
+          time: '2019-5-18 20:36:13',
+          likecount: this.chapterId,
+          text: 'xxxxxx'
         }
       ]
     },
@@ -108,11 +140,22 @@ export default {
 </script>
 
 <style scoped>
+  .el-tabs {
+    margin: 0 10% 100px 10%;
+  }
+  .el-tab-pane {
+    margin-bottom: 10px;
+  }
+  .course {
+    height: 200px;
+  }
   .course-info {
     padding: 0;
     height: 100%;
   }
-
+  .note-container {
+    margin-bottom: 5px;
+  }
   .el-tabs {
     padding-left: 20px;
   }

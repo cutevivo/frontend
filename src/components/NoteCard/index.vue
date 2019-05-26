@@ -5,8 +5,8 @@
         <el-header height="20px">
           <el-row >
             <el-col :span="6"><div>{{ note.name }}</div></el-col>
-            <el-col :span="6"><div>{{note.time}}</div></el-col>
-            <el-col :span="6" :offset="6"><div>{{note.likecount}}人收藏</div></el-col>
+            <el-col :span="6"><div class="time">{{note.time}}</div></el-col>
+            <el-col :span="6" :offset="6"><div class="collection"><span>{{note.likecount}}人收藏</span></div></el-col>
           </el-row>
         </el-header>
         <el-main>
@@ -19,9 +19,10 @@
            </router-link>
           </el-col>
           <el-col :span="6" :offset="12">
-             <el-button type="warning" icon="el-icon-star-off" circle></el-button>
-          </el-col>
-           
+            <div class="collection">
+              <el-button type="warning" icon="el-icon-star-off" circle></el-button>
+            </div>  
+          </el-col>  
         </el-footer>
       </el-container>
     </el-container>
@@ -55,6 +56,13 @@ export default {
 
   .note-card {
     height: 100%;
+  }
+
+  .time {
+    color: #304156;
+  }
+  .collection {
+    text-align: right;
   }
 
   .note-description {

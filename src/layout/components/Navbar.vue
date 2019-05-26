@@ -5,6 +5,13 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <el-badge :value="12" class="item">
+        <el-button size="small">评论</el-button>
+      </el-badge>
+      <el-badge :value="3" class="item">
+       <el-button size="small">回复</el-button>
+      </el-badge>
+
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -54,6 +61,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.item {
+  margin-top: 0px;
+  margin-right: 40px;
+  
+}
 .navbar {
   height: 50px;
   overflow: hidden;

@@ -6,7 +6,7 @@ const userCourseRouter = {
   redirect: '/course/list',
   name: 'UserCourse',
   meta: {
-    icon: 'statistics',
+    icon: 'shu',
     roles: ['user']
   },
   children: [
@@ -16,7 +16,7 @@ const userCourseRouter = {
       component: () => import('@/views/user/course/list'),
       meta: {
         title: '我的课程',
-        icon: 'edit'
+        icon: 'shu'
       }
     },
     {

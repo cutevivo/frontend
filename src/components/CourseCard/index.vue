@@ -2,12 +2,12 @@
   <el-card shadow="hover" :body-style="{ padding: '0px', height: '100%' }">
     <el-container class="course-card">
       <el-aside width="120px">
-        <img v-lazy="movie.posterUrl" width="100%" height="100%">
+        <img v-lazy="course.posterUrl" width="100%" height="100%">
       </el-aside>
       <el-container>
         <el-header height="20px">
           <el-row type="flex" justify="space-between">
-            <el-col :span="6">{{ movie.name }}</el-col>
+            <el-col :span="6">{{ course.name }}</el-col>
             <el-col :span="4" class="right"><span>{{ course.likecount }}人收藏</span></el-col>
           </el-row>
         </el-header>
@@ -64,5 +64,3 @@ export default {
     text-align: right;
   }
 </style>
-
-

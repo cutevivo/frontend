@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="author">
-      
     </div>
     <div class="note">
       <div v-html="html" />
@@ -71,7 +70,7 @@ export default {
   .hide {
     display: none;
   }
-  
+
   .note {
     margin: 0 20%;
   }

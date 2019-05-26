@@ -71,19 +71,28 @@ export default {
   .width {
     width: 50%;
   }
+  
   .image {
     width: 100%;
     display: block;
   }
-  .el-card{
+
+  .el-card {
     width:100%;
     height:100%;
   }
-  .course-information{
+  
+  .el-col {
+    height: 100%;
+  }
+
+  .course-information {
     font-family: monospace;
     color: grey;
+    height: 100%;
   }
-  .title{
+
+  .title {
     font-family:"微软雅黑";
   }
   

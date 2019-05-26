@@ -1,9 +1,17 @@
 <template>
-  <el-row>
+  <!-- <el-row>
     <el-col :span="8">
       <course-card v-for="course in courses" :key="course.id" :course="course" class="content" />
     </el-col>
-  </el-row>
+  </el-row> -->
+  <div class="main-container">
+    <el-row v-for="(tmpCourses, i) in listCourses" :key="i" :gutter="20">
+      <el-col :span="6" v-for="(course, j) in tmpCourses" :key="j">
+        <course-card :course="course" class="content"></course-card>
+      </el-col>
+    </el-row>
+  </div>
+
 </template>
 
 <script>
@@ -40,20 +48,48 @@ export default {
           teacher:'许卓尔',
           description: '一门很棒的课',
           score: 4.0
+        },
+        {
+          id: 8,
+          posterUrl: 'https://szimg.mukewang.com/5c62a4dc0812e84106000338-360-202.jpg',
+          name: '计算机系统',
+          teacher:'许卓尔',
+          description: '一门很棒的课',
+          score: 4.0
+        },
+        {
+          id: 8,
+          posterUrl: 'https://szimg.mukewang.com/5c62a4dc0812e84106000338-360-202.jpg',
+          name: '计算机系统',
+          teacher:'许卓尔',
+          description: '一门很棒的课',
+          score: 4.0
         }
       ]
+    }
+  },
+  computed: {
+    listCourses: function() {
+      const courses = this.courses
+      const sectionCount = 4
+      var arrTmp = []
+      for(let i=0; i < courses.length; ++i) {
+        const index = parseInt(i / sectionCount)
+        if(index >= arrTmp.length) {
+          arrTmp.push([])
+        }
+        arrTmp[index].push(courses[i])
+      }
+      return arrTmp
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .cards-container {
-    padding: 20px;
-    background-color: #f0f2f5;
-    height: 100%;
+  .main-container {
+    margin: 0 5%;
   }
-
   .content {
     margin: 10px 0px;
   }

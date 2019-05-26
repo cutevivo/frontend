@@ -78,9 +78,9 @@ export default {
         }
       ]
     },
-    books: function(){
-      return[
-      {
+    books: function() {
+      return [
+        {
           id: '12345',
           name: 'xxx',
           time: '2019-5-18 20:36:13',

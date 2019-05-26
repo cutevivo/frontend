@@ -7,7 +7,7 @@
   <div class="main-container">
     <el-row v-for="(tmpCourses, i) in listCourses" :key="i" :gutter="20">
       <el-col :span="6" v-for="(course, j) in tmpCourses" :key="j">
-        <course-card :course="course" class="content"></course-card>
+        <course-card :course="course"></course-card>
       </el-col>
     </el-row>
   </div>
@@ -46,7 +46,7 @@ export default {
           posterUrl: 'https://szimg.mukewang.com/5c62a4dc0812e84106000338-360-202.jpg',
           name: '计算机系统',
           teacher:'许卓尔',
-          description: '一门很棒的课',
+          description: '数据结构是计算机存储、组织数据的方式。数据结构是指相互之间存在一种或多种特定关系的数据元素的集合。通常情况下，精心选择的数据结构可以带来更高的运行或者存储效率。数据结构往往同高效的检索算法和索引技术有关数据结构是计算机存储、组织数据的方式。数据结构是指相互之间存在一种或多种特定关系的数据元素的集合。通常情况下，精心选择的数据结构可以带来更高的运行或者存储效率。数据结构往往同高效的检索算法和索引技术有关',
           score: 4.0
         },
         {
@@ -87,10 +87,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .el-row {
+    margin-bottom: 20px;
+    height: 363px;
+  }
+
+  .el-col {
+    height: 100%;
+  }
+
   .main-container {
-    margin: 0 5%;
+    margin: 0 0 0 0;
+    padding: 10px 0;
   }
-  .content {
-    margin: 10px 0px;
+  
+  .el-card {
+    height: 100%;
   }
+
 </style>

@@ -13,16 +13,14 @@
             <div class="postInfo-container">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item label-width="60px" label="Author:" class="postInfo-container-item">
-                    <el-select v-model="postForm.author" :remote-method="getRemoteUserList" filterable default-first-option remote placeholder="Search user">
-                      <el-option v-for="(item,index) in userListOptions" :key="item+index" :label="item" :value="item" />
-                    </el-select>
+                  <el-form-item label-width="50px" label="作者: " class="postInfo-container-item">
+                    <el-select v-model="postForm.author" :remote-method="getRemoteUserList" filterable default-first-option remote placeholder="Search user" disabled />
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="10">
-                  <el-form-item label-width="120px" label="Publush Time:" class="postInfo-container-item">
-                    <el-date-picker v-model="displayTime" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="Select date and time" />
+                  <el-form-item label-width="120px" label="发布时间: " class="postInfo-container-item">
+                    <el-date-picker v-model="displayTime" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="Select date and time" readonly />
                   </el-form-item>
                 </el-col>
 
@@ -67,10 +65,9 @@ const defaultForm = {
   title: '', // 文章题目
   content: '', // 文章内容
   content_short: '', // 文章摘要
-  image_uri: '', // 文章图片
   display_time: undefined, // 前台展示时间
   id: undefined,
-  platforms: ['a-platform'],
+  author: 'asdf',
   comment_disabled: false,
   score: 0
 }
@@ -101,7 +98,6 @@ export default {
       loading: false,
       userListOptions: [],
       rules: {
-        image_uri: [{ validator: validateRequire }],
         title: [{ validator: validateRequire }],
         content: [{ validator: validateRequire }]
       },
@@ -128,7 +124,7 @@ export default {
   created() {
     if (this.isEdit) {
       const id = this.$route.params && this.$route.params.id
-      this.fetchNote(id)
+      this.fetchData(id)
     } else {
       this.postForm = Object.assign({}, defaultForm)
     }
@@ -147,22 +143,14 @@ export default {
         this.postForm.title += `   Article Id:${this.postForm.id}`
         this.postForm.content_short += `   Article Id:${this.postForm.id}`
 
-        // set tagsview title
-        this.setTagsViewTitle()
-
         // set page title
         this.setPageTitle()
       }).catch(err => {
         console.log(err)
       })
     },
-    setTagsViewTitle() {
-      const title = 'Edit Article'
-      const route = Object.assign({}, this.tempRoute, { title: `${title}-${this.postForm.id}` })
-      this.$store.dispatch('tagsView/updateVisitedView', route)
-    },
     setPageTitle() {
-      const title = 'Edit Article'
+      const title = '编辑笔记'
       document.title = `${title} - ${this.postForm.id}`
     },
     submitForm() {
@@ -172,7 +160,7 @@ export default {
           this.loading = true
           this.$notify({
             title: '成功',
-            message: '发布文章成功',
+            message: '发布笔记成功',
             type: 'success',
             duration: 2000
           })
@@ -217,7 +205,7 @@ export default {
   position: relative;
 
   .createPost-main-container {
-    padding: 40px 45px 20px 50px;
+    padding: 20px 20px 20px 20px;
 
     .postInfo-container {
       position: relative;

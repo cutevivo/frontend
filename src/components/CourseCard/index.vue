@@ -2,9 +2,9 @@
   <el-card class="father">
    <div><img :src="course.posterUrl" class="image"></div>
     <div class="course">
-      <div class="title">{{course.name}}</div>
+      <div class="title">{{course.courseName}}</div>
       <div class="course-information">{{course.teacher}}</div>
-       <div> <el-rate 
+       <div> <el-rate
           v-model="course.score"
           disabled
           show-score
@@ -16,8 +16,8 @@
           <span class="overflow">{{ course.description.length > 100 ? course.description.slice(0, 100) + '...' : course.description }}</span>
         </div>
     </div>
-    <div class="footer">  
-      <router-link :to="'/course/info/' + course.id">
+    <div class="footer">
+      <router-link :to="'/course/info/' + course.courseId">
         <el-button class="button">详情</el-button>
       </router-link>
     </div>
@@ -48,7 +48,7 @@ export default {
   .course {
     height: 100%;
   }
-  
+
   .footer {
     position: absolute;
     bottom: 1%;
@@ -57,7 +57,7 @@ export default {
   .width {
     width: 50%;
   }
-  
+
   .image {
     width: 100%;
     display: block;
@@ -83,5 +83,5 @@ export default {
   .title {
     font-family:"微软雅黑";
   }
-  
+
 </style>

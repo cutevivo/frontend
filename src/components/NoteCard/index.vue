@@ -14,7 +14,7 @@
           </div>
         </el-main>
         <el-footer height="20px">
-          <router-link :to="'/note/info/' + note.id">
+          <router-link :to="'/note/view/' + note.id">
             <el-button type="primary" size="small">详情</el-button>
           </router-link>
         </el-footer>

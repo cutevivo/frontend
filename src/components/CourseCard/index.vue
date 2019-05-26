@@ -17,7 +17,9 @@
           </div>
         </el-main>
         <el-footer height="20px">
-          <el-link>详情</el-link>
+          <router-link :to="'/course/info/' + course.id">
+            <el-button type="primary" size="small">详情</el-button>
+          </router-link>
         </el-footer>
       </el-container>
     </el-container>

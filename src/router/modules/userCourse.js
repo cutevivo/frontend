@@ -20,7 +20,7 @@ const userCourseRouter = {
       }
     },
     {
-      path: 'info',
+      path: 'info/:id(\\d+)',
       name: 'CourseInfo',
       component: () => import('@/views/user/course/info'),
       meta: {

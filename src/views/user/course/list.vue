@@ -22,7 +22,7 @@
             <el-menu-item index="1-3">软件工程</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="1">
+        <el-submenu index="2">
           <template slot="title">
             <i class="el-icon-location"></i>
             <span>大二</span>

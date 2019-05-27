@@ -1,6 +1,6 @@
 <template>
   <el-container class="elContainer">
-    <el-aside width="15%" class="aside">Aside</el-aside>
+    <el-aside width="15%" class="aside"></el-aside>
     <el-container width="70%" class="elContainer">
       <el-header class="title">
         数据结构：八大数据结构分类
@@ -14,8 +14,8 @@
           </el-col>
           <el-col :span="23">
             <div>
-              <span>haode</span><br>
-              <span>haode</span><br>
+              <span>作者</span><br>
+              <span>简介</span><br>
             </div>
           </el-col>
         </el-row>
@@ -29,7 +29,7 @@
         </el-col>
       </el-footer>
     </el-container>
-    <el-aside width="15%" class="aside">RAside</el-aside>
+    <el-aside width="15%" class="aside"></el-aside>
 </el-container>
 </template>
 

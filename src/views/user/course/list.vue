@@ -84,7 +84,7 @@ export default {
     fetchCourses() {
       this.coursesLoading = true
       getCourses().then(response => {
-        this.courses = response.data.courses || []
+        this.courses = response.data || []
       }).catch(err => {
         console.log(err)
       })

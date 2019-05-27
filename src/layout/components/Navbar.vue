@@ -9,7 +9,7 @@
         <el-button size="small">评论</el-button>
       </el-badge>
       <el-badge :value="3" class="item">
-       <el-button size="small">回复</el-button>
+        <el-button size="small">回复</el-button>
       </el-badge>
 
       <el-dropdown class="avatar-container" trigger="click">
@@ -64,7 +64,7 @@ export default {
 .item {
   margin-top: 0px;
   margin-right: 40px;
-  
+
 }
 .navbar {
   height: 50px;

@@ -3,24 +3,24 @@
     <el-container class="note-card">
       <el-container>
         <el-header height="20px">
-          <el-row >
+          <el-row>
             <el-col :span="6"><div>{{ note.name }}</div></el-col>
-            <el-col :span="6"><div class="time">{{note.time}}</div></el-col>
-            <el-col :span="6" :offset="6"><div class="collection"><span>{{note.likecount}}人收藏</span></div></el-col>
+            <el-col :span="6"><div class="time">{{ note.time }}</div></el-col>
+            <el-col :span="6" :offset="6"><div class="collection"><span>{{ note.likecount }}人收藏</span></div></el-col>
           </el-row>
         </el-header>
         <el-main>
-          <div class="note-description">{{ note. text}}</div>
+          <div class="note-description">{{ note. text }}</div>
         </el-main>
         <el-footer height="20px">
           <el-col :span="6">
             <router-link :to="'/note/view/' + note.id">
               <el-button type="text">更多</el-button>
-           </router-link>
+            </router-link>
           </el-col>
           <el-col :span="6" :offset="12">
             <div class="collection">
-              <el-button :type="this.btnType" @click="onCollection" icon="el-icon-star-off" circle></el-button>
+              <el-button :type="this.btnType" icon="el-icon-star-off" circle @click="onCollection" />
             </div>
           </el-col>
         </el-footer>

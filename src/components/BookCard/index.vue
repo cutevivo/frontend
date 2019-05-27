@@ -1,23 +1,23 @@
 <template>
   <el-card class="father">
-    <div><img :src="course.posterUrl" class="image"></div>
-    <div class="course">
-      <div class="title">{{course.courseName}}</div>
-      <div class="course-information">{{course.teacher}}</div>
-       <div> <el-rate
-          v-model="course.score"
-          disabled
-          show-score
-          text-color="#ff9900"
-          score-template="{value}"
-        />
-        </div>
-        <div class="course-information">
-          <span class="overflow">{{ course.description.length > 100 ? course.description.slice(0, 100) + '...' : course.description }}</span>
-        </div>
+    <div><img :src="book.posterUrl" class="image"></div>
+    <div class="book">
+      <div class="title">{{ book.name }}</div>
+      <div class="book-information">{{ book.teacher }}</div>
+      <div> <el-rate
+        v-model="book.score"
+        disabled
+        show-score
+        text-color="#ff9900"
+        score-template="{value}"
+      />
+      </div>
+      <div class="book-information">
+        <span class="overflow">{{ book.description.length > 100 ? book.description.slice(0, 100) + '...' : book.description }}</span>
+      </div>
     </div>
     <div class="footer">
-      <router-link :to="'/course/info/' + course.courseId">
+      <router-link :to="'/book/info/' + book.id">
         <el-button class="button">详情</el-button>
       </router-link>
     </div>
@@ -26,9 +26,9 @@
 
 <script>
 export default {
-  name: 'CourseCard',
+  name: 'BookCard',
   props: {
-    course: {
+    book: {
       type: Object,
       required: true
     }
@@ -45,7 +45,7 @@ export default {
     position: relative;
   }
 
-  .course {
+  .book {
     height: 100%;
   }
 
@@ -68,7 +68,7 @@ export default {
     height:100%;
   }
 
-  .course-information {
+  .book-information {
     font-family: monospace;
     width: 100%;
     color: grey;

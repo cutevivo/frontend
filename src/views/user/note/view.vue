@@ -1,14 +1,36 @@
 <template>
-  <div>
-    <div class="author">
-    </div>
-    <div class="note">
-      <div v-html="html" />
-    </div>
-    <div class="hide">
-      <markdown-editor ref="markdownEditor" v-model="note.content" :language="language" height="300px" class="none" />
-    </div>
-  </div>
+  <el-container class="elContainer">
+    <el-aside width="15%" class="aside">Aside</el-aside>
+    <el-container width="70%" class="elContainer">
+      <el-header class="title">
+        数据结构：八大数据结构分类
+      </el-header>
+      <el-main>
+        <el-row>
+          <el-col :span="1">
+            <div class="head">
+              <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3914950518,3569645197&fm=26&gp=0.jpg" class="img">
+            </div>
+          </el-col>
+          <el-col :span="23">
+            <div>
+              <span>haode</span><br>
+              <span>haode</span><br>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row> 
+          <div>数据结构是指相互之间存在着一种或多种关系的数据元素的集合和该集合中数据元素之间的关系组成 。 常用的数据结构有：数组，栈，链表，队列，树，图，堆，散列表等，如图所示： </div>
+        </el-row>
+      </el-main>
+      <el-footer>
+        <el-col :span="6" :offset="12">
+          <el-button type="warning" icon="el-icon-star-off" circle></el-button>
+        </el-col>
+      </el-footer>
+    </el-container>
+    <el-aside width="15%" class="aside">RAside</el-aside>
+</el-container>
 </template>
 
 <script>
@@ -73,6 +95,39 @@ export default {
 
   .note {
     margin: 0 20%;
+  }
+
+  .elContainer{
+    padding-top: 40px;
+    margin-block: 30px;
+  }
+  .row{
+    margin-top: 10px;
+  }
+  .title{
+    font-size: 200%;
+    padding-block: 20px;
+    font-weight: 900;
+  }
+  .text{
+    margin-left:20px;
+    margin-right: 20px;
+  }
+  .aside{
+    margin-left:20px;
+    margin-right: 20px;
+  }
+  .img{
+    height: 100%;
+    width: 100%;
+  }
+  .head{
+    height:100%;
+    width:100%;
+  }
+  .el-row {
+    margin-bottom: 20px;
+   
   }
 </style>
 

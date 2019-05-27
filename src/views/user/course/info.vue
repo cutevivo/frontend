@@ -2,7 +2,7 @@
   <div>
     <div class="course-info">
       <img :src="course.posterUrl" class="image">
-      <div class="course-title">{{ course.name }}</div>
+      <div class="course-title">{{ course.courseName }}</div>
       <el-container direction="vertical">
         <el-main>
           <div class="course-des">
@@ -10,7 +10,7 @@
             <div>{{ course.description }}</div>
           </div>
         </el-main>
-        <el-foot>
+        <el-footer>
           <div class="test">
             <div style="text-align: left; font-size: 12px">评分</div>
             <div>
@@ -23,18 +23,24 @@
               />
             </div>
           </div>
-        </el-foot>
+        </el-footer>
       </el-container>
       <el-tabs tab-position="left" style="height: 100%;" :stretch="true" @tab-click="handleClick">
-        <el-tab-pane v-for="(chapter, index) in this.chapters" :key="index" :label="chapter.name">
+        <el-tab-pane v-for="(chapter, index) in chapters" :key="index" :label="chapter.name">
           <div class="notes-container">
             <note-card v-for="note in notes" :key="note.id" :note="note" class="note-container" />
           </div>
         </el-tab-pane>
       </el-tabs>
-      <div>
+      <!-- <div>
         <book-card v-for="book in books" :key="book.id" :book="book" class="book-container" />
-      </div>
+      </div> -->
+    </div>
+
+    <div class="float-button">
+       <el-tooltip class="item" effect="dark" content="添加笔记" placement="top" type="primary">
+      <el-button icon="el-icon-edit" circle @click="addNote"></el-button>
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -50,6 +56,14 @@ export default {
   components: {
     'note-card': NoteCard
   },
+  data() {
+    return {
+      course: [],
+      courseId: 1,
+      chapterId: 1,
+      notes: []
+    }
+  },
   computed: {
     chapters: function() {
       return [...Array(parseInt(this.course.chapterNum)).keys()].map(i => {
@@ -58,14 +72,6 @@ export default {
           name: `第${i + 1}章`
         }
       })
-    }
-  },
-  data() {
-    return {
-      course: null,
-      courseId: 1,
-      chapterId: 1,
-      notes: []
     }
   },
   created: function() {
@@ -81,14 +87,23 @@ export default {
     fetchCourse(id) {
       fetchCourse(id).then(response => {
         this.course = response.data || {}
+        debugger
       }).catch(err => {
         console.log(err)
       })
     },
     fetchNotes(courseId, chapterId) {
       fetchNotes(courseId, chapterId).then(response => {
-        this.notes = response.data.notes
-        debugger
+        this.notes = response.data
+      })
+    },
+    addNote() {
+      this.$router.push({
+        path: '/note/edit',
+        query: {
+          courseId: this.courseId,
+          chapterId: this.chapterId
+        }
       })
     }
   }
@@ -143,6 +158,13 @@ export default {
   .test{
     margin-left: 30px;
     margin-bottom: 40px;
+  }
+  .float-button {
+    position: fixed;
+    height: 40px;
+    width: 40px;
+    bottom: 90px;
+    right: 90px;
   }
 </style>
 

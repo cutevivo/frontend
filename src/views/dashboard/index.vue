@@ -65,14 +65,13 @@ export default {
         { id: 2, idView: require('../../assets/images/p3.png') }
       ],
       coursesLoading: true,
-      courses: [],
-      
+      courses: []
     }
   },
   created() {
     this.fetchCourses()
   },
-  
+
   computed: {
     listCourses: function() {
       const courses = this.courses
@@ -88,7 +87,7 @@ export default {
       return arrTmp
     }
   },
-   methods: {
+  methods: {
     fetchCourses() {
       this.coursesLoading = true
       getCourses().then(response => {

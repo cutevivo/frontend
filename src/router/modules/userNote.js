@@ -30,7 +30,7 @@ const userNoteRouter = {
       }
     },
     {
-      path: 'edit/:id(\\d+)',
+      path: 'edit',
       name: 'EditNote',
       component: () => import('@/views/user/note/edit'),
       meta: {

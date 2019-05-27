@@ -18,3 +18,19 @@ export function fetchNotes(courseId, chapterId) {
     }
   })
 }
+
+export function postNote(form) {
+  return request({
+    url: '/note/add',
+    method: 'post',
+    data: {
+      header: form.title,
+      content: JSON.stringify(form.content),
+      comment: JSON.stringify(form.content_short || ''),
+      score: form.importance,
+      courseId: form.courseId,
+      chapterId: form.chapterId,
+      userId: form.userId
+    }
+  })
+}

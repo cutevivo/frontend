@@ -7,7 +7,7 @@ const userNoteRouter = {
   name: 'Notes',
   meta: {
     title: '笔记管理',
-    icon: 'statistics',
+    icon: 'manage',
     roles: ['user']
   },
   children: [
@@ -17,7 +17,7 @@ const userNoteRouter = {
       component: () => import('@/views/user/note/list'),
       meta: {
         title: '我的笔记',
-        icon: 'statistics'
+        icon: 'mynote'
       }
     },
     {
@@ -26,7 +26,7 @@ const userNoteRouter = {
       component: () => import('@/views/user/note/list'),
       meta: {
         title: '我的收藏',
-        icon: 'statistics'
+        icon: 'starnote'
       }
     },
     {

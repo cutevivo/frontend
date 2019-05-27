@@ -11,7 +11,7 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // use administrator privileges to execute the command line.
 // For example, Mac: sudo npm run
 const port = 9528 // dev port
-const server = 6324
+// const server = 6324
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
       // change xxx-api/register => mock/register
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://localhost:${port}/`,
+        target: `http://localhost:${port}/mock`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''

@@ -20,7 +20,7 @@ export default {
     // 'course-card': CourseCard,
     'note-card': NoteCard
   },
- 
+
   computed: {
     notes: function() {
       return [
@@ -41,7 +41,7 @@ export default {
           text: 'xxxxxx'
         }
       ]
-    },
+    }
   },
   created: function() {
     // this.chapterId = 1;

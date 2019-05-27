@@ -75,21 +75,25 @@ export default [
     url: '/user/info\.*',
     type: 'get',
     response: config => {
-      const { token } = config.query
-      const info = users[token]
-
-      // mock error
-      if (!info) {
-        return {
-          code: 50008,
-          message: 'Login failed, unable to get user details.'
-        }
-      }
-
       return {
         code: 20000,
-        data: info
+        data: users['user-token']
       }
+      // const { token } = config.query
+      // const info = users[token]
+
+      // // mock error
+      // if (!info) {
+      //   return {
+      //     code: 50008,
+      //     message: 'Login failed, unable to get user details.'
+      //   }
+      // }
+
+      // return {
+      //   code: 20000,
+      //   data: info
+      // }
     }
   },
 

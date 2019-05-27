@@ -5,7 +5,7 @@
     </el-col>
   </el-row> -->
   <el-container class="main-container">
-    <el-aside>
+    <el-aside width="15%">
       <el-menu
         default-active="2"
         class="el-menu-vertical-demo"

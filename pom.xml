@@ -49,7 +49,7 @@
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>run build:prop</arguments>
+							<arguments>run build:prod</arguments>
 						</configuration>
 					</execution>
 					<!-- Run Unit tests with Jest -->

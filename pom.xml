@@ -92,7 +92,7 @@
 							<overwrite>true</overwrite>
 							<resources>
 								<resource>
-									<directory>${project.basedir}/target/dist</directory>
+									<directory>${project.basedir}/dist</directory>
 									<includes>
 										<include>static/</include>
 										<include>index.html</include>

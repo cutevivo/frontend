@@ -1,7 +1,6 @@
 import request from '@/utils/request'
 
 export function getCourses() {
-  debugger
   return request({
     url: '/course/all',
     method: 'get',
@@ -10,9 +9,9 @@ export function getCourses() {
   })
 }
 
-export function getChapters(id) {
+export function fetchCourse(id) {
   return request({
-    url: '/course/chapters',
+    url: '/course/info',
     method: 'get',
     params: {
       courseId: id

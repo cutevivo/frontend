@@ -19,18 +19,21 @@
             </div>
           </el-col>
         </el-row>
-        <el-row> 
-          <div>数据结构是指相互之间存在着一种或多种关系的数据元素的集合和该集合中数据元素之间的关系组成 。 常用的数据结构有：数组，栈，链表，队列，树，图，堆，散列表等，如图所示： </div>
-        </el-row>
+        <div class="note">
+          <div :v-html="html" />
+        </div>
       </el-main>
       <el-footer>
         <el-col :span="6" :offset="12">
-          <el-button type="warning" icon="el-icon-star-off" circle></el-button>
+          <el-button type="warning" icon="el-icon-star-off" circle @click="getHtml"></el-button>
         </el-col>
       </el-footer>
     </el-container>
     <el-aside width="15%" class="aside"></el-aside>
-</el-container>
+    <div class="hide">
+      <markdown-editor ref="markdownEditor" v-model="note.content" language="en_US" height="300px" class="none" />
+    </div>
+  </el-container>
 </template>
 
 <script>
@@ -56,7 +59,7 @@ export default {
     return {
       content: '',
       title: '',
-      html: '',
+      html: '<h2>Title</h2><ul><li>list</li><li>list2</li></ul>',
       note: Object.assign({}, defaultNote)
     }
   },
@@ -66,23 +69,26 @@ export default {
     this.fetchData(id)
   },
   methods: {
-    fetchData(id) {
-      fetchNote(id).then(reponse => {
-        this.note = reponse.data
-        this.setPageTitle()
-      }).catch(err => {
-        console.log(err)
-      }).finally(() => {
-        this.getHtml()
-      })
-    },
     setPageTitle() {
       const title = '查看笔记'
       document.title = `${title} - ${this.note.title}`
     },
     getHtml() {
+      debugger
       this.html = this.$refs.markdownEditor.getHtml()
       console.log(this.html)
+    },
+    fetchData(id) {
+      this.getHtml()
+      this.note.content = "##Title\n-a\n-b"
+      // fetchNote(id).then(reponse => {
+      //   this.note = reponse.data
+      //   this.setPageTitle()
+      // }).catch(err => {
+      //   console.log(err)
+      // }).finally(() => {
+      //   this.getHtml()
+      // })
     }
   }
 }

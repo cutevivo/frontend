@@ -77,6 +77,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
+import { getCourses } from '@/api/course'
 
 export default {
   name: 'Register',
@@ -171,7 +172,13 @@ export default {
       })
     },
     handleLogin() {
-      this.$router.push({ path: '/login' })
+      getCourses().then(response => {
+        debugger
+        this.courses = response.data.courses || []
+      }).catch(err => {
+        console.log(err)
+      })
+      // this.$router.push({ path: '/login' })
     },
     handleRegister() {
       this.$refs.registerForm.validate(valid => {

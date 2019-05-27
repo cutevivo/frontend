@@ -55,7 +55,7 @@ export default {
       return [...Array(parseInt(this.course.chapterNum)).keys()].map(i => {
         return {
           index: i,
-          name: `第${i}章`
+          name: `第${i + 1}章`
         }
       })
     }
@@ -123,9 +123,9 @@ export default {
   .image{
     margin-top: 10px;
     margin-bottom:10px;
-    height: 100px;
+    height: 200px;
     width: 100%;
-    filter:blur(20px);
+    filter: blur(15px);
   }
   .course-title{
     font-family:'Gill Sans';
@@ -138,7 +138,7 @@ export default {
   .course-des{
     margin-left: 10px;
     color: gray;
-    margin-right: 150px;
+    margin-right: 10px;
   }
   .test{
     margin-left: 30px;

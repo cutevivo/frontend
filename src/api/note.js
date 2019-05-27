@@ -8,6 +8,22 @@ export function fetchNote(id) {
   })
 }
 
+export function fetchMyNotes(id) {
+  return request({
+    url: '/user/written_notes',
+    method: 'get',
+    params: { id }
+  })
+}
+
+export function fetchUserNotes(id, api) {
+  return request({
+    url: `/user/${api}`,
+    method: 'get',
+    params: { id }
+  })
+}
+
 export function fetchNotes(courseId, chapterId) {
   return request({
     url: '/note/list',

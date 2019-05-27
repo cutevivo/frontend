@@ -3,7 +3,7 @@
     <div class="course-info">
       <div class="course-title">我的笔记</div>
           <div class="notes-container">
-            <note-card v-for="note in notes" :key="note.id" :note="note" class="note-container" />
+            <note-card v-for="note in notes" :key="note.noteId" :note="note" class="note-container" />
           </div>
     </div>
     <div class="referance" />
@@ -13,6 +13,7 @@
 <script>
 // import CourseCard from '@/components/CourseCard'
 import NoteCard from '@/components/NoteCard'
+import { fetchUserNotes } from '@/api/note'
 
 export default {
   name: 'CourseInfo',
@@ -20,36 +21,29 @@ export default {
     // 'course-card': CourseCard,
     'note-card': NoteCard
   },
-
-  computed: {
-    notes: function() {
-      return [
-        {
-          id: '1234',
-          name: 'xxx',
-          time: '2019-5-18 20:36:13',
-          likecount: this.chapterId,
-          isLike: false,
-          text: '瑞士计算机科学'
-        },
-        {
-          id: '1345',
-          name: 'xxx',
-          time: '2019-5-18 20:36:13',
-          likecount: this.chapterId,
-          isLike: true,
-          text: 'xxxxxx'
-        }
-      ]
+  data() {
+    return {
+      notes: [],
+      type: '',
+      userId
     }
   },
   created: function() {
-    // this.chapterId = 1;
+    this.type = this.$route.params && this.$route.params.type
+    this.userId = this.$store.state.user.token
+    this.fetchNotes()
   },
   methods: {
     handleClick(tab, event) {
       const id = tab.paneName
       this.chapterId = this.course.chapters[id].index
+    },
+    fetchNotes() {
+      fetchUserNotes(this.userId, this.type).then(response => {
+        this.notes = response.data || []
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }

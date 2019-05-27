@@ -28,7 +28,7 @@
       <el-tabs tab-position="left" style="height: 100%;" :stretch="true" @tab-click="handleClick">
         <el-tab-pane v-for="(chapter, index) in chapters" :key="index" :label="chapter.name">
           <div class="notes-container">
-            <note-card v-for="note in notes" :key="note.id" :note="note" class="note-container" />
+            <note-card v-for="note in notes" :key="note.noteId" :note="note" class="note-container" />
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -87,14 +87,14 @@ export default {
     fetchCourse(id) {
       fetchCourse(id).then(response => {
         this.course = response.data || {}
-        debugger
       }).catch(err => {
         console.log(err)
       })
     },
     fetchNotes(courseId, chapterId) {
       fetchNotes(courseId, chapterId).then(response => {
-        this.notes = response.data
+        debugger
+        this.notes = response.data || []
       })
     },
     addNote() {

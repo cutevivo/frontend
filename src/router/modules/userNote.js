@@ -23,7 +23,7 @@ const userNoteRouter = {
     {
       path: 'collection',
       name: 'Collection',
-      component: () => import('@/views/user/note/list'),
+      component: () => import('@/views/user/note/collection'),
       meta: {
         title: '我的收藏',
         icon: 'starnote'

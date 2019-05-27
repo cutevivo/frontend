@@ -20,7 +20,9 @@ export function fetchUserNotes(id, api) {
   return request({
     url: `/user/${api}`,
     method: 'get',
-    params: { id }
+    params: {
+      userId: id
+    }
   })
 }
 

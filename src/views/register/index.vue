@@ -173,7 +173,6 @@ export default {
     },
     handleLogin() {
       getCourses().then(response => {
-        debugger
         this.courses = response.data.courses || []
       }).catch(err => {
         console.log(err)

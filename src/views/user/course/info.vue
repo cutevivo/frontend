@@ -93,7 +93,6 @@ export default {
     },
     fetchNotes(courseId, chapterId) {
       fetchNotes(courseId, chapterId).then(response => {
-        debugger
         this.notes = response.data || []
       })
     },

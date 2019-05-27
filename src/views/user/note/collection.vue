@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="course-info">
-      <div class="course-title">我的笔记</div>
+      <div class="course-title">我的收藏</div>
           <div class="notes-container">
             <note-card v-for="note in notes" :key="note.noteId" :note="note" class="note-container" />
           </div>
@@ -29,7 +29,7 @@ export default {
     }
   },
   created: function() {
-    this.type = 'written_notes'
+    this.type = 'collected_notes'
     this.userId = this.$store.state.user.token
     this.fetchNotes()
   },

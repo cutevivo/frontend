@@ -1,33 +1,45 @@
 <template>
   <div class="createPost-container">
     <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+
+      <sticky :z-index="10" :class-name="'sub-navbar '+postForm.status">
+        <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">
+          Publush
+        </el-button>
+        <el-button v-loading="loading" type="warning" @click="draftForm">
+          Draft
+        </el-button>
+      </sticky>
+
       <div class="createPost-main-container">
         <el-row>
           <el-col :span="24">
             <el-form-item style="margin-bottom: 40px;" prop="title">
               <MDinput v-model="postForm.title" :maxlength="100" name="name" required>
-                标题
+                Title
               </MDinput>
             </el-form-item>
 
             <div class="postInfo-container">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item label-width="50px" label="作者: " class="postInfo-container-item">
-                    <el-select v-model="postForm.author" :remote-method="getRemoteUserList" filterable default-first-option remote placeholder="Search user" disabled />
+                  <el-form-item label-width="60px" label="Author:" class="postInfo-container-item">
+                    <el-select v-model="postForm.author" filterable default-first-option remote placeholder="Search user">
+                      <el-option v-for="(item,index) in userListOptions" :key="item+index" :label="item" :value="item" />
+                    </el-select>
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="10">
-                  <el-form-item label-width="120px" label="发布时间: " class="postInfo-container-item">
-                    <el-date-picker v-model="displayTime" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="Select date and time" readonly />
+                  <el-form-item label-width="120px" label="Publush Time:" class="postInfo-container-item">
+                    <el-date-picker v-model="displayTime" type="datetime" format="yyyy-MM-dd HH:mm:ss" placeholder="Select date and time" />
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="6">
-                  <el-form-item label-width="90px" label="评分:" class="postInfo-container-item">
+                  <el-form-item label-width="90px" label="Importance:" class="postInfo-container-item">
                     <el-rate
-                      v-model="postForm.score"
+                      v-model="postForm.importance"
                       :max="5"
                       :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
                       :low-threshold="1"
@@ -41,13 +53,13 @@
           </el-col>
         </el-row>
 
-        <el-form-item style="margin-bottom: 40px;" label-width="80px" label="简短评价:">
+        <el-form-item style="margin-bottom: 40px;" label-width="70px" label="Summary:">
           <el-input v-model="postForm.content_short" :rows="1" type="textarea" class="article-textarea" autosize placeholder="Please enter the content" />
           <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span>
         </el-form-item>
 
         <el-form-item prop="content" style="margin-bottom: 30px;">
-          <markdown-editor ref="markdownEditor" v-model="postForm.content" :options="{hideModeSwitch:true,previewStyle:'tab'}" :height="400" />
+          <markdown-editor ref="markdownEditor" v-model="postForm.content" :options="{hideModeSwitch:true,previewStyle:'tab'}" height="600px" />
         </el-form-item>
       </div>
     </el-form>
@@ -55,10 +67,12 @@
 </template>
 
 <script>
-import MarkdownEditor from '@/components/MarkdownEditor'
 import MDinput from '@/components/MDinput'
-import { fetchNote } from '@/api/note'
-// import { searchUser } from '@/api/remote-search'
+import Sticky from '@/components/Sticky' // 粘性header组件
+import MarkdownEditor from '@/components/MarkdownEditor'
+import { validURL } from '@/utils/validate'
+import { fetchNote, postNote } from '@/api/note'
+
 
 const defaultForm = {
   status: 'draft',
@@ -67,14 +81,21 @@ const defaultForm = {
   content_short: '', // 文章摘要
   display_time: undefined, // 前台展示时间
   id: undefined,
-  author: 'asdf',
+  platforms: ['a-platform'],
   comment_disabled: false,
-  score: 0
+  importance: 0,
+  userId: 0,
+  courseId: 0,
+  chapterId: 0
 }
 
 export default {
   name: 'NoteDetail',
-  components: { MarkdownEditor, MDinput },
+  components: {
+    'MDinput': MDinput,
+    'Sticky': Sticky,
+    'markdown-editor': MarkdownEditor
+  },
   props: {
     isEdit: {
       type: Boolean,
@@ -93,13 +114,28 @@ export default {
         callback()
       }
     }
+    const validateSourceUri = (rule, value, callback) => {
+      if (value) {
+        if (validURL(value)) {
+          callback()
+        } else {
+          this.$message({
+            message: '外链url填写不正确',
+            type: 'error'
+          })
+          callback(new Error('外链url填写不正确'))
+        }
+      } else {
+        callback()
+      }
+    }
     return {
       postForm: Object.assign({}, defaultForm),
       loading: false,
       userListOptions: [],
       rules: {
         title: [{ validator: validateRequire }],
-        content: [{ validator: validateRequire }]
+        content: [{ validator: validateRequire }],
       },
       tempRoute: {}
     }
@@ -114,7 +150,7 @@ export default {
       // back end return => "2013-06-25 06:59:25"
       // front end need timestamp => 1372114765000
       get() {
-        return (+new Date(this.postForm.display_time))
+        return (+new Date())
       },
       set(val) {
         this.postForm.display_time = new Date(val)
@@ -123,8 +159,9 @@ export default {
   },
   created() {
     if (this.isEdit) {
-      const id = this.$route.params && this.$route.params.id
-      this.fetchData(id)
+      this.postForm.userId = this.$store.state.user.token
+      this.postForm.courseId = this.$route.query.courseId
+      this.postForm.chapterId = this.$route.query.chapterId
     } else {
       this.postForm = Object.assign({}, defaultForm)
     }
@@ -143,14 +180,22 @@ export default {
         this.postForm.title += `   Article Id:${this.postForm.id}`
         this.postForm.content_short += `   Article Id:${this.postForm.id}`
 
+        // set tagsview title
+        this.setTagsViewTitle()
+
         // set page title
         this.setPageTitle()
       }).catch(err => {
         console.log(err)
       })
     },
+    setTagsViewTitle() {
+      const title = 'Edit Article'
+      const route = Object.assign({}, this.tempRoute, { title: `${title}-${this.postForm.id}` })
+      this.$store.dispatch('tagsView/updateVisitedView', route)
+    },
     setPageTitle() {
-      const title = '编辑笔记'
+      const title = 'Edit Article'
       document.title = `${title} - ${this.postForm.id}`
     },
     submitForm() {
@@ -158,14 +203,18 @@ export default {
       this.$refs.postForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$notify({
-            title: '成功',
-            message: '发布笔记成功',
-            type: 'success',
-            duration: 2000
+          
+          postNote(this.postForm).then(response => {
+            this.$notify({
+              title: '成功',
+              message: '发布文章成功',
+              type: 'success',
+              duration: 2000
+            })
+            this.$router.push('/note/list')
+          }).finally(() => {
+            this.loading = false
           })
-          this.postForm.status = 'published'
-          this.loading = false
         } else {
           console.log('error submit!!')
           return false
@@ -189,10 +238,6 @@ export default {
       this.postForm.status = 'draft'
     },
     getRemoteUserList(query) {
-      // searchUser(query).then(response => {
-      //   if (!response.data.items) return
-      //   this.userListOptions = response.data.items.map(v => v.name)
-      // })
     }
   }
 }
@@ -205,7 +250,7 @@ export default {
   position: relative;
 
   .createPost-main-container {
-    padding: 20px 20px 20px 20px;
+    padding: 40px 45px 20px 50px;
 
     .postInfo-container {
       position: relative;
